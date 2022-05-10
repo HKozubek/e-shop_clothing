@@ -34,13 +34,14 @@ sil_width <- c()
 min_clusters = 160
 iterations = 10
 step = 10
-
+t = 1
 for(i in sequence(iterations, min_clusters, step)){
   start_time <- Sys.time()
   #ones <- rep(1, i)
   sil_width <- c(sil_width,ASW_func(1, i))
   end_time <- Sys.time()
-  print(c(i, end_time - start_time))
+  print(c(i, end_time - start_time, sil_width[t]))
+  t = t + 1
 }
 
 graph <- data.frame(sequence(iterations, min_clusters, step), sil_width)
