@@ -8,6 +8,7 @@ library(lubridate)
 library(padr)
 library(zoo)
 library(janitor)
+library(readr)
 
 rm(list=ls())
 ls()
@@ -18,10 +19,10 @@ df<- read_csv2("e_shop_clothing_2008.csv")
 colnames(df)<-c('year','month','day','order','country','id','page1','page2','colour','location','model','price','price2','page')
 
 
-ggplot(df, aes(x=id, y=country))+
+ggplot(filter(df,page1==1), aes(x=page2, y=location))+
   geom_point(alpha = 0.2)+ theme(legend.position="none")+theme_dark()
 
-
+??read_csv2
 
 filter(df,page1==3|page1==3)
 
@@ -30,7 +31,7 @@ wynik<-df %>%
   select('order','country','session ID','page 1 (main category)','page 2 (clothing model)','price','price 2')
 wynik<-df %>% 
   group_by(id) %>% 
-  mutate(mean_day=mean(day)) %>% 
+  mutate(count_=mean(day)) %>% 
   ungroup() %>% 
 #  mutate(price2_T = case_when(price <= mean_price  ~ 2,
 #                              price > mean_price  ~ 1)) %>% 
